@@ -79,7 +79,7 @@ finish() {
 }
 
 # ──────────────────────────────────────────────────────────────────────────
-# STAGES: шаг V3 — поставить managed settings песочницы Claude Code.
+# Шаги: поставить managed settings песочницы Claude Code.
 # Ключи и путь сверены с документацией 2026-10-19, см. README.md рядом.
 # ──────────────────────────────────────────────────────────────────────────
 
@@ -89,12 +89,12 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 SRC="$HERE/managed-settings.json"
 DST_DIR="/Library/Application Support/ClaudeCode"
 DST="$DST_DIR/managed-settings.json"
-LOG="$HERE/../results/v3-install.log"
-CANARY="$HOME/v3-canary-outside-$(date +%s)"
+LOG="$HERE/../results/install.log"
+CANARY="$HOME/canary-outside-$(date +%s)"
 mkdir -p "$(dirname "$LOG")"
 log() { printf '%s %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$1" >> "$LOG"; }
 
-banner "Песочница Claude Code под managed settings (V3)" \
+banner "Песочница Claude Code под managed settings" \
   "Ставит один системный файл: $DST (macOS)."
 
 # ── 1 ────────────────────────────────────────────────────────────────────
