@@ -1,0 +1,539 @@
+{
+  "schema": 1,
+  "scope": "openshell",
+  "started_at": "2026-10-29T18:42:08.139418+00:00",
+  "system": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "probe_sha256": "9452d19bc9a094f4edb0029cc4283e643e1b71e654f0069205457d7f2723ba37",
+  "canary": "SANDBOX_MATRIX_SYNTHETIC_ONLY",
+  "runner_sha256": "3ce1754050fdbd5127b974bb74dd98a459c3fc1c033efc1c42a2149c114e4928",
+  "receiver_sha256": "f2fba67c84680512c8265dd5e710ef05e90add7e9771d8622147896870a6f9be",
+  "dockerfile_sha256": "bc88989f89317f9d993513e5c1a66b43f58501f99acb8aa8fa3ee7fb553e733f",
+  "executions": [
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "host",
+        "--add-host",
+        "host.openshell.internal:127.0.0.1",
+        "--env",
+        "SANDBOX_MATRIX_TOKEN=SANDBOX_MATRIX_SYNTHETIC_ONLY",
+        "sandbox-matrix-fixture:0cb6a1",
+        "python3",
+        "/sandbox/probe.py",
+        "/sandbox",
+        "/matrix-private/canary",
+        "/matrix-outside/canary",
+        "http://host.openshell.internal:19181",
+        "http://host.openshell.internal:19182",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\"}\n{\"id\": \"outside_write\", \"outcome\": \"allowed\"}\n{\"id\": \"denied_http\", \"outcome\": \"allowed\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"allowed\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "control",
+      "config": null,
+      "environment_policy": "inject synthetic variable"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-0cb6a1-baseline",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "/sandbox/probe.py",
+        "/sandbox",
+        "/matrix-private/canary",
+        "/matrix-outside/canary",
+        "http://host.openshell.internal:19181",
+        "http://host.openshell.internal:19182",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-outside/canary'\", \"errno\": 13}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"<urlopen error [Errno 13] Permission denied>\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied\", \"errno\": 13}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "baseline",
+      "config": {
+        "version": 1,
+        "filesystem_policy": {
+          "include_workdir": true,
+          "read_only": [
+            "/bin",
+            "/usr",
+            "/lib",
+            "/etc",
+            "/proc",
+            "/dev/urandom",
+            "/var/log",
+            "/matrix-private"
+          ],
+          "read_write": [
+            "/sandbox",
+            "/tmp",
+            "/dev/null"
+          ]
+        },
+        "landlock": {
+          "compatibility": "hard_requirement"
+        },
+        "network_policies": {
+          "collector": {
+            "name": "local-collector-only",
+            "endpoints": [
+              {
+                "host": "host.openshell.internal",
+                "port": 19181,
+                "protocol": "tcp"
+              }
+            ],
+            "binaries": [
+              {
+                "path": "/usr/local/bin/python3.12"
+              }
+            ]
+          }
+        }
+      },
+      "environment_policy": "inject synthetic variable"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-0cb6a1-hardened",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "/sandbox/probe.py",
+        "/sandbox",
+        "/matrix-private/canary",
+        "/matrix-outside/canary",
+        "http://host.openshell.internal:19181",
+        "http://host.openshell.internal:19182",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-private/canary'\", \"errno\": 13}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] synthetic variable withheld\", \"errno\": 13}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-outside/canary'\", \"errno\": 13}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"<urlopen error [Errno 13] Permission denied>\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied\", \"errno\": 13}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "hardened",
+      "config": {
+        "version": 1,
+        "filesystem_policy": {
+          "include_workdir": true,
+          "read_only": [
+            "/bin",
+            "/usr",
+            "/lib",
+            "/etc",
+            "/proc",
+            "/dev/urandom",
+            "/var/log"
+          ],
+          "read_write": [
+            "/sandbox",
+            "/tmp",
+            "/dev/null"
+          ]
+        },
+        "landlock": {
+          "compatibility": "hard_requirement"
+        },
+        "network_policies": {
+          "collector": {
+            "name": "local-collector-only",
+            "endpoints": [
+              {
+                "host": "host.openshell.internal",
+                "port": 19181,
+                "protocol": "tcp"
+              }
+            ],
+            "binaries": [
+              {
+                "path": "/usr/local/bin/python3.12"
+              }
+            ]
+          }
+        }
+      },
+      "environment_policy": "do not forward host environment"
+    }
+  ],
+  "receipts": [
+    {
+      "receiver": "denied",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY",
+      "profile": "control"
+    },
+    {
+      "receiver": "denied",
+      "path": "/direct",
+      "profile": "control"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY",
+      "profile": "control"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY",
+      "profile": "baseline"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY",
+      "profile": "hardened"
+    }
+  ],
+  "setup": [
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "openshell 0.1.6\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "status"
+      ],
+      "returncode": 0,
+      "stdout": "Server Status\n\n  Gateway: http://127.0.0.1:18080\n  Server: http://127.0.0.1:18080\n  Status: Connected\n  Authentication: Not required (gateway)\n  Version: 0.1.6\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Server.Version}}"
+      ],
+      "returncode": 0,
+      "stdout": "29.4.2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "build",
+        "-t",
+        "sandbox-matrix-fixture:0cb6a1",
+        "-f",
+        "openshell/fixture.Dockerfile",
+        "."
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "#0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from fixture.Dockerfile\n#1 transferring dockerfile: 500B done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0\n#2 DONE 0.0s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 136B done\n#3 DONE 0.0s\n\n#4 [1/5] FROM docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0\n#4 resolve docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0 done\n#4 DONE 0.0s\n\n#5 [internal] load build context\n#5 transferring context: 1.02kB done\n#5 DONE 0.0s\n\n#6 [2/5] COPY scripts/probe.py /sandbox/probe.py\n#6 CACHED\n\n#7 [4/5] RUN mkdir -p /matrix-private /matrix-outside     && printf SANDBOX_MATRIX_SYNTHETIC_ONLY > /matrix-private/canary     && chmod 755 /matrix-private     && chmod 444 /matrix-private/canary     && chmod 777 /sandbox /matrix-outside\n#7 CACHED\n\n#8 [3/5] COPY openshell/receiver.py /sandbox/receiver.py\n#8 CACHED\n\n#9 [5/5] WORKDIR /sandbox\n#9 CACHED\n\n#10 exporting to image\n#10 exporting layers done\n#10 exporting manifest sha256:8a04e5a397a87971377c45f6b50ee1ec1eab7af5ab7f80788b00b52b0af57d97 done\n#10 exporting config sha256:27ce1c503e0d5ab531dc3c3142f524449a8f575769228d8f744914a3e98857c5 done\n#10 exporting attestation manifest sha256:2a1d39ac3da7d990b85612c2ce3fb127c5f9415bca85e55b5da7de092cada7f3 done\n#10 exporting manifest list sha256:550f13d5c93e6d69cf9618dbb27452824c87101340f129ed6eb19f883c247765 done\n#10 naming to docker.io/library/sandbox-matrix-fixture:0cb6a1 done\n#10 unpacking to docker.io/library/sandbox-matrix-fixture:0cb6a1 0.0s done\n#10 DONE 0.0s\n"
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "sandbox-matrix-fixture:0cb6a1",
+        "--format",
+        "{{.Id}}"
+      ],
+      "returncode": 0,
+      "stdout": "sha256:550f13d5c93e6d69cf9618dbb27452824c87101340f129ed6eb19f883c247765\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/gateway:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/gateway@sha256:f0b36dba21d282c52e498c25289658cfd6cd4f343b0069fde5609e25b002cdea\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/supervisor:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/supervisor@sha256:ce859a7d77ee515d3fe0b3c7dc61286516f402eb1d25c761d806d9ae5ed96c0b\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/sandbox:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/sandbox@sha256:1038eb5c1f191fa3c34684fd7041b891c78ec570979d487f36e06e08f91bfb63\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "sandbox-matrix-receiver-0cb6a1",
+        "--network",
+        "host",
+        "sandbox-matrix-fixture:0cb6a1",
+        "python3",
+        "/sandbox/receiver.py",
+        "19181",
+        "19182"
+      ],
+      "returncode": 0,
+      "stdout": "ae4bcc5121e5c44876cd905f3352a2927e9cbe7d4b8b39dea0608418bd1cebca\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"denied\", \"path\": \"/direct\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "create",
+        "--name",
+        "mx-0cb6a1-baseline",
+        "--from",
+        "sandbox-matrix-fixture:0cb6a1",
+        "--policy",
+        "$REPO/results/2026-10-29/openshell/baseline.yaml",
+        "--no-auto-providers",
+        "--env",
+        "SANDBOX_MATRIX_TOKEN=SANDBOX_MATRIX_SYNTHETIC_ONLY",
+        "--detach",
+        "--",
+        "python3",
+        "-c",
+        "import time; time.sleep(600)"
+      ],
+      "returncode": 0,
+      "stdout": "\nCreated sandbox: mx-0cb6a1-baseline\n\n  [0.0s] Requesting compute...\n[0.0s] Sandbox allocated\n[0.0s] Pulling image sandbox-matrix-fixture:0cb6a1\n[0.0s] Image already present\n[0.1s] Starting sandbox Container created\n",
+      "stderr": "\u26a0 SANDBOX_MATRIX_TOKEN looks like a credential passed as a plain environment variable.\n  The agent inside the sandbox can read this value directly.\n\n  To hide it from the agent, use a provider instead of --env.\n  See: https://docs.nvidia.com/openshell/latest/how-it-works/providers/overview\n\n"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-0cb6a1-baseline",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "-c",
+        "import platform; print('READY', platform.platform())"
+      ],
+      "returncode": 0,
+      "stdout": "READY Linux-6.12.76-linuxkit-aarch64-with\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "get",
+        "mx-0cb6a1-baseline",
+        "--policy-only"
+      ],
+      "returncode": 0,
+      "stdout": "version: 1\nfilesystem_policy:\n  include_workdir: true\n  read_only:\n    - /bin\n    - /usr\n    - /lib\n    - /etc\n    - /proc\n    - /dev/urandom\n    - /var/log\n    - /matrix-private\n  read_write:\n    - /sandbox\n    - /tmp\n    - /dev/null\nlandlock:\n  compatibility: hard_requirement\nnetwork_policies:\n  collector:\n    name: local-collector-only\n    endpoints:\n      - host: host.openshell.internal\n        port: 19181\n        protocol: tcp\n    binaries:\n      - path: /usr/local/bin/python3.12",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"denied\", \"path\": \"/direct\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "create",
+        "--name",
+        "mx-0cb6a1-hardened",
+        "--from",
+        "sandbox-matrix-fixture:0cb6a1",
+        "--policy",
+        "$REPO/results/2026-10-29/openshell/hardened.yaml",
+        "--no-auto-providers",
+        "--detach",
+        "--",
+        "python3",
+        "-c",
+        "import time; time.sleep(600)"
+      ],
+      "returncode": 0,
+      "stdout": "\nCreated sandbox: mx-0cb6a1-hardened\n\n  [0.0s] Requesting compute...\n[0.0s] Sandbox allocated\n[0.0s] Pulling image sandbox-matrix-fixture:0cb6a1\n[0.0s] Image already present\n[0.1s] Starting sandbox Container created\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-0cb6a1-hardened",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "-c",
+        "import platform; print('READY', platform.platform())"
+      ],
+      "returncode": 0,
+      "stdout": "READY Linux-6.12.76-linuxkit-aarch64-with\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "get",
+        "mx-0cb6a1-hardened",
+        "--policy-only"
+      ],
+      "returncode": 0,
+      "stdout": "version: 1\nfilesystem_policy:\n  include_workdir: true\n  read_only:\n    - /bin\n    - /usr\n    - /lib\n    - /etc\n    - /proc\n    - /dev/urandom\n    - /var/log\n  read_write:\n    - /sandbox\n    - /tmp\n    - /dev/null\nlandlock:\n  compatibility: hard_requirement\nnetwork_policies:\n  collector:\n    name: local-collector-only\n    endpoints:\n      - host: host.openshell.internal\n        port: 19181\n        protocol: tcp\n    binaries:\n      - path: /usr/local/bin/python3.12",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"denied\", \"path\": \"/direct\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n{\"receiver\": \"allowed\", \"path\": \"/SANDBOX_MATRIX_SYNTHETIC_ONLY\"}\n",
+      "stderr": ""
+    }
+  ],
+  "cleanup": [
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "delete",
+        "mx-0cb6a1-baseline"
+      ],
+      "returncode": 0,
+      "stdout": "\u2713 Sandbox mx-0cb6a1-baseline deletion accepted; cleanup is pending\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "delete",
+        "mx-0cb6a1-hardened"
+      ],
+      "returncode": 0,
+      "stdout": "\u2713 Sandbox mx-0cb6a1-hardened deletion accepted; cleanup is pending\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "sandbox-matrix-receiver-0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "sandbox-matrix-receiver-0cb6a1\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "rm",
+        "sandbox-matrix-fixture:0cb6a1"
+      ],
+      "returncode": 0,
+      "stdout": "Untagged: sandbox-matrix-fixture:0cb6a1\nDeleted: sha256:550f13d5c93e6d69cf9618dbb27452824c87101340f129ed6eb19f883c247765\n",
+      "stderr": ""
+    }
+  ],
+  "not_run": {
+    "offline": "No policy DNS responder; DNS failure is not proof of enforcement"
+  }
+}

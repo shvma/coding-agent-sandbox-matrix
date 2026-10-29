@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "started_at": "2026-10-29T21:25:48.264725+00:00",
+  "scope": "srt-cli",
+  "system": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "srt": {
+    "command": [
+      "$REPO/node_modules/.bin/srt",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "0.0.81\n",
+    "stderr": ""
+  },
+  "node": {
+    "command": [
+      "node",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "v22.14.0\n",
+    "stderr": ""
+  },
+  "probe_sha256": "9452d19bc9a094f4edb0029cc4283e643e1b71e654f0069205457d7f2723ba37",
+  "runner_sha256": "b2c45eb92e52c115e2b4ebc947d9e07add0e55d44af6b7443438e136c1314875",
+  "lock_sha256": "d819a975af3251d0f295393a70b12e9646428d2b123b0e3a26a733a6ad36a7a2",
+  "canary": "SANDBOX_MATRIX_SYNTHETIC_ONLY",
+  "executions": [
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace/probe.py",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace",
+        "$HOME/.sandbox-matrix-5c75y10d/private-canary",
+        "$HOME/.sandbox-matrix-5c75y10d/outside-canary",
+        "http://127.0.0.1:59877",
+        "http://127.0.0.1:59878",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\"}\n{\"id\": \"outside_write\", \"outcome\": \"allowed\"}\n{\"id\": \"denied_http\", \"outcome\": \"allowed\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"allowed\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "control",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:59877"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-5c75y10d/workspace"
+          ],
+          "denyWrite": []
+        }
+      },
+      "outside_file_exists": true
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-5c75y10d/baseline.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace/probe.py",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace",
+        "$HOME/.sandbox-matrix-5c75y10d/private-canary",
+        "$HOME/.sandbox-matrix-5c75y10d/outside-canary",
+        "http://127.0.0.1:59877",
+        "http://127.0.0.1:59878",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-5c75y10d/outside-canary'\", \"errno\": 1}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": 1}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "baseline",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:59877"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-5c75y10d/workspace"
+          ],
+          "denyWrite": []
+        }
+      },
+      "outside_file_exists": false
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-5c75y10d/hardened.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace/probe.py",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace",
+        "$HOME/.sandbox-matrix-5c75y10d/private-canary",
+        "$HOME/.sandbox-matrix-5c75y10d/outside-canary",
+        "http://127.0.0.1:59877",
+        "http://127.0.0.1:59878",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-5c75y10d/private-canary'\", \"errno\": 1}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] synthetic variable withheld\", \"errno\": 13}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-5c75y10d/outside-canary'\", \"errno\": 1}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": 1}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "hardened",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:59877"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [
+            "$HOME/.sandbox-matrix-5c75y10d/private-canary"
+          ],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-5c75y10d/workspace"
+          ],
+          "denyWrite": []
+        },
+        "credentials": {
+          "envVars": [
+            {
+              "name": "SANDBOX_MATRIX_TOKEN",
+              "mode": "deny"
+            }
+          ]
+        }
+      },
+      "outside_file_exists": false
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-5c75y10d/offline.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace/probe.py",
+        "$HOME/.sandbox-matrix-5c75y10d/workspace",
+        "$HOME/.sandbox-matrix-5c75y10d/private-canary",
+        "$HOME/.sandbox-matrix-5c75y10d/outside-canary",
+        "http://127.0.0.1:59877",
+        "http://127.0.0.1:59878",
+        "SANDBOX_MATRIX_SYNTHETIC_ONLY"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-5c75y10d/private-canary'\", \"errno\": 1}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] synthetic variable withheld\", \"errno\": 13}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-5c75y10d/outside-canary'\", \"errno\": 1}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": 1}\n{\"id\": \"allowed_channel\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n",
+      "stderr": "",
+      "profile": "offline",
+      "config": {
+        "network": {
+          "allowedDomains": [],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [
+            "$HOME/.sandbox-matrix-5c75y10d/private-canary"
+          ],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-5c75y10d/workspace"
+          ],
+          "denyWrite": []
+        },
+        "credentials": {
+          "envVars": [
+            {
+              "name": "SANDBOX_MATRIX_TOKEN",
+              "mode": "deny"
+            }
+          ]
+        }
+      },
+      "outside_file_exists": false
+    }
+  ],
+  "receipts": [
+    {
+      "receiver": "denied",
+      "profile": "control",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY"
+    },
+    {
+      "receiver": "denied",
+      "profile": "control",
+      "path": "/direct"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "control",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "baseline",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "hardened",
+      "path": "/SANDBOX_MATRIX_SYNTHETIC_ONLY"
+    }
+  ]
+}
