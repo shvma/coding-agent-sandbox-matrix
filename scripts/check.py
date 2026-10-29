@@ -63,7 +63,7 @@ def check_settings():
 
 
 def check_shell():
-    scripts = sorted(ROOT.rglob("*.sh"))
+    scripts = sorted(p for p in tracked_files() if p.suffix == ".sh" and p.is_file())
     for s in scripts:
         r = subprocess.run(["bash", "-n", str(s)], capture_output=True, text=True)
         if r.returncode:
@@ -156,11 +156,29 @@ def today():
     return date.today().isoformat()
 
 
+def check_results():
+    from run import render, validate
+    snapshots = [p for p in tracked_files() if p.name == "raw.json" and
+                 p.is_relative_to(ROOT / "results")]
+    for path in snapshots:
+        try:
+            raw = json.loads(path.read_text())
+            if validate(raw):
+                fail(f"{path.relative_to(ROOT)}: неполный прогон или неожиданные исходы")
+            elif path.with_name("matrix.md").read_text() != render(raw):
+                fail(f"{path.relative_to(ROOT)}: матрица не соответствует сырым логам")
+            else:
+                ok(f"{path.relative_to(ROOT)}: исходы и матрица подтверждены сырыми логами")
+        except (KeyError, ValueError, OSError) as exc:
+            fail(f"{path.relative_to(ROOT)}: {exc}")
+
+
 def main():
     check_settings()
     check_shell()
     check_refs()
     check_dates_worktree()
+    check_results()
     if "--history" in sys.argv:
         check_dates_history()
     print(f"\n{'FAILED' if failures else 'PASSED'}: {len(failures)} проблем(ы)")

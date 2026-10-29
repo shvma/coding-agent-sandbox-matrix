@@ -1,0 +1,11 @@
+{
+  "name": "coding-agent-sandbox-matrix",
+  "private": true,
+  "scripts": {
+    "matrix": "python3 scripts/benchmark.py",
+    "check": "python3 scripts/check.py"
+  },
+  "dependencies": {
+    "@anthropic-ai/sandbox-runtime": "0.0.81"
+  }
+}

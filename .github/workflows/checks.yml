@@ -20,3 +20,57 @@ jobs:
         env:
           REQUIRE_SHELLCHECK: "1"
         run: python3 scripts/check.py --history
+      - name: Evidence reducer regression checks
+        run: python3 scripts/test_results.py
+
+  srt:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Linux sandbox dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap socat ripgrep
+          # Ephemeral GitHub-hosted runner: permit bubblewrap user namespaces.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - run: npm ci --ignore-scripts
+      - name: Actual OS sandbox probes
+        run: npm run matrix -- --output results/local-ci-srt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: srt-${{ matrix.os }}
+          path: results/local-ci-srt/
+
+  openshell:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Linux sandbox dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap socat ripgrep
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - run: npm ci --ignore-scripts
+      - name: SRT and temporary OpenShell gateway with real workloads
+        run: npm run matrix -- --with-openshell --output results/local-ci-both
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: openshell-linux
+          path: results/local-ci-both/

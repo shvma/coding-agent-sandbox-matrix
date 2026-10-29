@@ -1,0 +1,6 @@
+**
+!scripts/
+!scripts/probe.py
+!openshell/
+!openshell/receiver.py
+!openshell/fixture.Dockerfile

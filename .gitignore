@@ -1,0 +1,5 @@
+node_modules/
+.tools/
+__pycache__/
+results/local-*/
+.DS_Store
