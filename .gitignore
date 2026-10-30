@@ -3,3 +3,4 @@ node_modules/
 __pycache__/
 results/local-*/
 .DS_Store
+results/install.log

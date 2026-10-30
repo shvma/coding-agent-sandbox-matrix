@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Проверки репозитория: конфиг, мастер установки, ссылки, даты.
 
+Конфиг: каждый ключ managed-settings.json должен стоять в таблице claude-sandbox/README.md
+с тем же значением (для списков — каждый элемент), а не просто упоминаться.
+
 Запуск: python3 scripts/check.py           — рабочее дерево
         python3 scripts/check.py --history — плюс даты в каждом коммите истории
 Без ShellCheck в PATH проверка ShellCheck пропускается; REQUIRE_SHELLCHECK=1 делает её обязательной (так в CI).
@@ -54,12 +57,42 @@ def check_settings():
         fail(f"{SETTINGS.relative_to(ROOT)}: невалидный JSON: {e}")
         return
     ok(f"{SETTINGS.relative_to(ROOT)}: валидный JSON")
-    doc = SETTINGS_DOC.read_text(encoding="utf-8")
-    missing = [k for k in leaf_keys(data) if f"`{k}`" not in doc]
-    if missing:
-        fail(f"ключи без описания в {SETTINGS_DOC.relative_to(ROOT)}: {', '.join(missing)}")
+    # Строки таблицы README: | `ключ`[, `ключ`] | значение | зачем | источник |
+    table = {}
+    for line in SETTINGS_DOC.read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) >= 2:
+            for key in TICK.findall(cells[0]):
+                table[key] = cells[1]
+    bad = []
+    for key in leaf_keys(data):
+        value = lookup(data, key)
+        if key not in table:
+            bad.append(f"{key}: нет строки в таблице")
+            continue
+        for shown in shown_values(value):
+            if shown not in table[key]:
+                bad.append(f"{key}: в конфиге {shown}, в README «{table[key][:60]}»")
+    if bad:
+        fail(f"{SETTINGS_DOC.relative_to(ROOT)} расходится с managed-settings.json:\n      " + "\n      ".join(bad))
     else:
-        ok(f"каждый ключ managed-settings.json описан в {SETTINGS_DOC.relative_to(ROOT)}")
+        ok(f"значения всех ключей managed-settings.json совпадают с таблицей {SETTINGS_DOC.relative_to(ROOT)}")
+
+
+def lookup(data, key):
+    for part in key.split("."):
+        data = data[part]
+    return data
+
+
+def shown_values(value):
+    """Как значение должно быть записано в ячейке: скаляр целиком, список — поэлементно."""
+    if not isinstance(value, list):
+        return [f"`{json.dumps(value)}`"]
+    if not value:
+        return ["`[]`"]
+    return [f"`{item.get('path') or item.get('name') or json.dumps(item)}`" if isinstance(item, dict)
+            else f"`{item}`" for item in value]
 
 
 def check_shell():
@@ -94,7 +127,8 @@ def check_refs():
         refs = [r for r in TICK.findall(text) if r.endswith(REF_EXT)]
         refs += [r.split("#")[0] for r in LINK.findall(text) if not re.match(r"[a-z]+:", r)]
         for ref in refs:
-            if not ref or ref.startswith(("~", "/", "$")):
+            # Пути на машине пользователя и dot-файлы чужих репозиториев (`.mcp.json`) — не ссылки сюда.
+            if not ref or ref.startswith(("~", "/", "$")) or (ref.startswith(".") and not ref.startswith(("./", "../"))):
                 continue
             if not ((md.parent / ref).exists() or (ROOT / ref).exists()):
                 bad.append(f"{md.relative_to(ROOT)} → {ref}")
@@ -157,12 +191,16 @@ def today():
 
 
 def check_results():
-    from run import render, validate
+    from run import SCHEMA, render, validate
     snapshots = [p for p in tracked_files() if p.name == "raw.json" and
                  p.is_relative_to(ROOT / "results")]
     for path in snapshots:
         try:
             raw = json.loads(path.read_text())
+            if raw.get("schema") != SCHEMA:
+                print(f"skip  {path.relative_to(ROOT)}: архив schema {raw.get('schema')}, "
+                      "текущий редьюсер его не пересчитывает")
+                continue
             if validate(raw):
                 fail(f"{path.relative_to(ROOT)}: неполный прогон или неожиданные исходы")
             elif path.with_name("matrix.md").read_text() != render(raw):

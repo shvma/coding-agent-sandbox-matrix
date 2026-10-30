@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""One entry point: SRT, optionally a temporary local OpenShell 0.1.6 lab."""
+"""One entry point: SRT, optionally a temporary local OpenShell 0.1.6 lab.
+
+Writes console.log (everything printed, host paths redacted) and SHA256SUMS
+over every file of the run. Exit code: 1 stand error, 2 findings, 0 neither.
+"""
 import argparse
 import hashlib
 import io
@@ -11,9 +15,16 @@ import tarfile
 import time
 import urllib.request
 import uuid
+from pathlib import Path
 from datetime import datetime, timezone
 
-from run import ROOT, execute
+from run import ROOT, execute, redact
+
+
+# Digests of the 0.1.6 images as published on ghcr.io; a mismatch stops the lab.
+IMAGES = {"gateway": "sha256:f0b36dba21d282c52e498c25289658cfd6cd4f343b0069fde5609e25b002cdea",
+          "supervisor": "sha256:ce859a7d77ee515d3fe0b3c7dc61286516f402eb1d25c761d806d9ae5ed96c0b",
+          "sandbox": "sha256:1038eb5c1f191fa3c34684fd7041b891c78ec570979d487f36e06e08f91bfb63"}
 
 
 def install_cli():
@@ -37,28 +48,65 @@ def install_cli():
     return binary, {"url": base + name, "sha256": digest}
 
 
+class Console:
+    """Print and keep a redacted copy of every line this run shows."""
+
+    def __init__(self, path):
+        self.file = path.open("w")
+
+    def line(self, text):
+        text = redact(text.rstrip("\n"))
+        print(text, flush=True)
+        self.file.write(text + "\n")
+        self.file.flush()
+
+    def run(self, command):
+        process = subprocess.Popen(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        for text in process.stdout:
+            self.line(text)
+        return process.wait()
+
+
+def worst(*codes):
+    """1 (stand error) outranks 2 (findings) outranks 0."""
+    return 1 if 1 in codes or any(c not in (0, 1, 2) for c in codes) else 2 if 2 in codes else 0
+
+
+def seal(output, console, code):
+    console.line(f"exit code: {code}")
+    console.file.close()
+    files = sorted(p for p in output.rglob("*") if p.is_file() and p.name != "SHA256SUMS")
+    (output / "SHA256SUMS").write_text("".join(
+        f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(output)}\n" for p in files))
+    return code
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--with-openshell", action="store_true")
     parser.add_argument("--output", default="results/local-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
     args = parser.parse_args()
+    if args.with_openshell and subprocess.run(["docker", "container", "inspect", "sandbox-matrix-gateway"],
+                                              capture_output=True).returncode == 0:
+        parser.error("sandbox-matrix-gateway already exists; this command will not replace it")
     output = (ROOT / args.output).resolve()
     output.mkdir(parents=True, exist_ok=False)
-    srt = subprocess.run([sys.executable, "scripts/run.py", "--output", str(output / "srt")], cwd=ROOT)
+    console = Console(output / "console.log")
+    console.line("$ npm run matrix -- " + " ".join(sys.argv[1:]))
+    console.line("started: " + datetime.now(timezone.utc).isoformat())
+    srt = console.run([sys.executable, "scripts/run.py", "--output", str(output / "srt")])
     if not args.with_openshell:
-        return srt.returncode
-    if subprocess.run(["docker", "container", "inspect", "sandbox-matrix-gateway"],
-                      capture_output=True).returncode == 0:
-        parser.error("sandbox-matrix-gateway already exists; this command will not replace it")
+        return seal(output, console, worst(srt))
     state = (ROOT / ".tools/openshell-state").resolve()
     state.mkdir(parents=True, exist_ok=True)
     journal = {"steps": [], "cleanup": []}
     owner = uuid.uuid4().hex
     started = False
-    failed = srt.returncode != 0
+    failed = False
+    openshell = 1
 
     def step(command, timeout=180):
-        print("lab: " + command[0] + " " + command[1], flush=True)
+        console.line("lab: " + Path(command[0]).name + " " + command[1])
         result = execute(command, ROOT, None, timeout)
         journal["steps"].append(result)
         if result["returncode"] != 0:
@@ -68,8 +116,13 @@ def main():
     try:
         cli, journal["cli_release"] = install_cli()
         step([str(cli), "--version"])
-        for image in ("gateway", "supervisor", "sandbox"):
-            step(["docker", "pull", f"ghcr.io/nvidia/openshell/{image}:0.1.6"])
+        for image, digest in IMAGES.items():
+            ref = f"ghcr.io/nvidia/openshell/{image}:0.1.6"
+            if digest not in execute(["docker", "image", "inspect", ref, "--format", "{{json .RepoDigests}}"],
+                                     ROOT, None)["stdout"]:
+                step(["docker", "pull", ref], timeout=600)
+            if digest not in step(["docker", "image", "inspect", ref, "--format", "{{json .RepoDigests}}"])["stdout"]:
+                raise RuntimeError(ref + " does not match the pinned digest")
         step(["docker", "run", "--rm", "--user", "0", "-v", f"{state}:{state}",
               "ghcr.io/nvidia/openshell/gateway:0.1.6", "generate-certs", "--output-dir", str(state / "tls")])
         config = '''[openshell]
@@ -117,10 +170,11 @@ app_armor_profile = "Unconfined"
             time.sleep(0.5)
         else:
             raise RuntimeError("gateway readiness timed out")
-        step([sys.executable, "scripts/run_openshell.py", "--cli", str(cli), "--output", str(output / "openshell")], timeout=600)
+        openshell = console.run([sys.executable, "scripts/run_openshell.py", "--cli", str(cli),
+                                 "--output", str(output / "openshell")])
     except Exception as exc:
         journal["error"] = str(exc)
-        print(str(exc), file=sys.stderr)
+        console.line("lab error: " + str(exc))
         failed = True
     finally:
         if started:
@@ -133,8 +187,8 @@ app_armor_profile = "Unconfined"
                 result = execute(["docker", "rm", "-f", parts[0]], ROOT, None)
                 journal["cleanup"].append(result)
                 failed |= result["returncode"] != 0
-        (output / "lab.json").write_text(json.dumps(journal, indent=2) + "\n")
-    return failed
+        (output / "lab.json").write_text(redact(json.dumps(journal, indent=2)) + "\n")
+    return seal(output, console, worst(srt, openshell, 1 if failed else 0))
 
 
 if __name__ == "__main__":
