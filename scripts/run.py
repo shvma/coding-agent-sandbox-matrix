@@ -231,13 +231,20 @@ SCOPE = {
 }
 
 
+def workload_platform(raw):
+    seen = sorted({line.split(" ", 1)[1] for step in raw.get("setup", [])
+                   for line in step.get("stdout", "").splitlines() if line.startswith("READY ")})
+    return ["Платформа workload (по `sandbox exec`): " + ", ".join(seen), ""] if seen else []
+
+
 def render(raw):
     measurements = rows(raw)
     errors, findings = assess(raw)
     profiles = [e["profile"] for e in raw["executions"]]
     lookup = {(r["profile"], r["id"]): r["outcome"] for r in measurements}
     lines = ["# Измеренная матрица", "", f"UTC: {raw['started_at']}", "",
-             f"Система: {raw.get('system', 'не записана')}", "",
+             f"Хост раннера: {raw.get('system', 'не записан')}", "",
+             *workload_platform(raw),
              *SCOPE[raw["scope"]], "",
              "`allowed` = действие удалось; `blocked` = явный отказ или приёмник ничего не получил,",
              "хотя от control получил; `error` ≠ защита; `not_run` = в этом варианте не испытывалось.", "",

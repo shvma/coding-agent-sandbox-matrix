@@ -1,0 +1,751 @@
+{
+  "schema": 2,
+  "scope": "openshell",
+  "started_at": "2026-10-30T08:36:14.815376+00:00",
+  "system": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "probe_sha256": "c3500417bd822a249eca7eae008f36bdde2a2344a4b5b6796c94a8c302cd28df",
+  "canary": "SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+  "runner_sha256": "b3b374ce38703fb6fc56e6887d9c0fbdc706d1737e1bf179269874afc97eda6b",
+  "receiver_sha256": "810a00389aa86ef211a05196668b9e00cfd4b00bf06983bdc261636a4c9169a3",
+  "dockerfile_sha256": "dc95dbf7e5a8cc3baf7a402bfd5bf80298f5bffa0442c8d2b7ef26fc1000e2fc",
+  "executions": [
+    {
+      "command": [
+        "docker",
+        "run",
+        "--name",
+        "sandbox-matrix-control-49d5d2",
+        "--network",
+        "host",
+        "--add-host",
+        "host.openshell.internal:127.0.0.1",
+        "--env",
+        "SANDBOX_MATRIX_TOKEN=SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+        "sandbox-matrix-fixture:49d5d2",
+        "python3",
+        "/sandbox/probe.py",
+        "{\"workspace\": \"/sandbox\", \"private\": \"/matrix-private/canary\", \"outside\": \"/matrix-outside/canary\", \"allowed\": \"http://host.openshell.internal:19181\", \"denied\": \"http://host.openshell.internal:19182\", \"udp\": [\"host.openshell.internal\", 19183]}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"59a31260f84ce821\", \"netns\": \"net:[4026531840]\"}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\", \"sha256\": \"e6039a28e220fbd38dc61dc2f1cec19fd9653366858c8e5fe4e7a7947e2bba2f\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\", \"sha256\": \"e6039a28e220fbd38dc61dc2f1cec19fd9653366858c8e5fe4e7a7947e2bba2f\"}\n{\"id\": \"outside_write\", \"outcome\": \"allowed\"}\n{\"id\": \"denied_http\", \"outcome\": \"allowed\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"allowed\"}\n{\"id\": \"dns_udp\", \"outcome\": \"allowed\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"allowed\"}\n{\"id\": \"git_hook\", \"outcome\": \"allowed\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"allowed\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "control",
+      "config": null,
+      "not_run": {
+        "unix_socket": "\u0432 workload \u043d\u0435\u0442 \u0441\u043e\u043a\u0435\u0442\u0430 \u0445\u043e\u0441\u0442\u0430; \u043c\u043e\u043d\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 Docker socket \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f \u043f\u043e docker inspect"
+      },
+      "targets": {
+        "workspace_write": {
+          "exists": true,
+          "sha256": "24939bfbd4fda84c68ed26e7271d1ed32081894283f0b6223769356be599fb3f"
+        },
+        "outside_write": {
+          "exists": true,
+          "sha256": "24939bfbd4fda84c68ed26e7271d1ed32081894283f0b6223769356be599fb3f"
+        },
+        "git_hook": {
+          "exists": true,
+          "sha256": "089e11b4a2128f5340e8f230e2113c13d1b98e6959f591d06179ed0707577d53"
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": true,
+          "sha256": "fbc541fab39833419078a457c044c4af0ad4f9530506acba86bc03d25fc00db4"
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        }
+      },
+      "environment_policy": "inject synthetic variable"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-49d5d2-baseline",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "/sandbox/probe.py",
+        "{\"workspace\": \"/sandbox\", \"private\": \"/matrix-private/canary\", \"outside\": \"/matrix-outside/canary\", \"allowed\": \"http://host.openshell.internal:19181\", \"denied\": \"http://host.openshell.internal:19182\", \"udp\": [\"host.openshell.internal\", 19183]}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"4a51a20059303ca5\", \"netns\": \"net:[4026532701]\"}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\", \"sha256\": \"e6039a28e220fbd38dc61dc2f1cec19fd9653366858c8e5fe4e7a7947e2bba2f\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\", \"sha256\": \"e6039a28e220fbd38dc61dc2f1cec19fd9653366858c8e5fe4e7a7947e2bba2f\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-outside/canary'\", \"errno\": \"EACCES\"}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"<urlopen error [Errno 13] Permission denied>\", \"errno\": \"EACCES\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied\", \"errno\": \"EACCES\"}\n{\"id\": \"dns_udp\", \"outcome\": \"error\", \"detail\": \"[Errno 89] Destination address required\", \"errno\": \"EDESTADDRREQ\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"allowed\"}\n{\"id\": \"git_hook\", \"outcome\": \"allowed\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"allowed\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "baseline",
+      "config": {
+        "version": 1,
+        "filesystem_policy": {
+          "include_workdir": true,
+          "read_only": [
+            "/bin",
+            "/usr",
+            "/lib",
+            "/etc",
+            "/proc",
+            "/dev/urandom",
+            "/var/log",
+            "/matrix-private"
+          ],
+          "read_write": [
+            "/sandbox",
+            "/tmp",
+            "/dev/null"
+          ]
+        },
+        "landlock": {
+          "compatibility": "hard_requirement"
+        },
+        "network_policies": {
+          "collector": {
+            "name": "local-collector-only",
+            "endpoints": [
+              {
+                "host": "host.openshell.internal",
+                "port": 19181,
+                "protocol": "tcp"
+              }
+            ],
+            "binaries": [
+              {
+                "path": "/usr/local/bin/python3.12"
+              }
+            ]
+          }
+        }
+      },
+      "not_run": {
+        "unix_socket": "\u0432 workload \u043d\u0435\u0442 \u0441\u043e\u043a\u0435\u0442\u0430 \u0445\u043e\u0441\u0442\u0430; \u043c\u043e\u043d\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 Docker socket \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f \u043f\u043e docker inspect"
+      },
+      "targets": {
+        "workspace_write": {
+          "exists": true,
+          "sha256": "acd97bc7cdc115ccbb110a43c77d2e0b910734c23ca6bc5459c75da09ff319dd"
+        },
+        "outside_write": {
+          "exists": false,
+          "detail": "Error response from daemon: Could not find the file /matrix-outside/canary in container 890a4b2c189e8080768ea791f173cbd16b7c3ace23acffdec8948c25f3b36c49"
+        },
+        "git_hook": {
+          "exists": true,
+          "sha256": "089e11b4a2128f5340e8f230e2113c13d1b98e6959f591d06179ed0707577d53"
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": true,
+          "sha256": "fbc541fab39833419078a457c044c4af0ad4f9530506acba86bc03d25fc00db4"
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        }
+      },
+      "environment_policy": "inject synthetic variable"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-49d5d2-hardened",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "/sandbox/probe.py",
+        "{\"workspace\": \"/sandbox\", \"private\": \"/matrix-private/canary\", \"outside\": \"/matrix-outside/canary\", \"allowed\": \"http://host.openshell.internal:19181\", \"denied\": \"http://host.openshell.internal:19182\", \"udp\": [\"host.openshell.internal\", 19183]}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"3ad5635cf796d583\", \"netns\": \"net:[4026532834]\"}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-private/canary'\", \"errno\": \"EACCES\"}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] variable absent in the probe environment\", \"errno\": \"EACCES\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied: '/matrix-outside/canary'\", \"errno\": \"EACCES\"}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"<urlopen error [Errno 13] Permission denied>\", \"errno\": \"EACCES\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] Permission denied\", \"errno\": \"EACCES\"}\n{\"id\": \"dns_udp\", \"outcome\": \"error\", \"detail\": \"[Errno 89] Destination address required\", \"errno\": \"EDESTADDRREQ\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] nothing was read upstream; nothing to send\", \"errno\": \"EACCES\"}\n{\"id\": \"git_hook\", \"outcome\": \"allowed\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"allowed\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "hardened",
+      "config": {
+        "version": 1,
+        "filesystem_policy": {
+          "include_workdir": true,
+          "read_only": [
+            "/bin",
+            "/usr",
+            "/lib",
+            "/etc",
+            "/proc",
+            "/dev/urandom",
+            "/var/log"
+          ],
+          "read_write": [
+            "/sandbox",
+            "/tmp",
+            "/dev/null"
+          ]
+        },
+        "landlock": {
+          "compatibility": "hard_requirement"
+        },
+        "network_policies": {
+          "collector": {
+            "name": "local-collector-only",
+            "endpoints": [
+              {
+                "host": "host.openshell.internal",
+                "port": 19181,
+                "protocol": "tcp"
+              }
+            ],
+            "binaries": [
+              {
+                "path": "/usr/local/bin/python3.12"
+              }
+            ]
+          }
+        }
+      },
+      "not_run": {
+        "unix_socket": "\u0432 workload \u043d\u0435\u0442 \u0441\u043e\u043a\u0435\u0442\u0430 \u0445\u043e\u0441\u0442\u0430; \u043c\u043e\u043d\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 Docker socket \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f \u043f\u043e docker inspect"
+      },
+      "targets": {
+        "workspace_write": {
+          "exists": true,
+          "sha256": "b642dd81af105fd901c72ca2de3384f6daaca7382f9a8f2b13981bf515cf4140"
+        },
+        "outside_write": {
+          "exists": false,
+          "detail": "Error response from daemon: Could not find the file /matrix-outside/canary in container 10954b47b7285e1b4ea7c7742b4f80bbb3b2c11f0d99b905b337ebb5bce61e01"
+        },
+        "git_hook": {
+          "exists": true,
+          "sha256": "089e11b4a2128f5340e8f230e2113c13d1b98e6959f591d06179ed0707577d53"
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": true,
+          "sha256": "fbc541fab39833419078a457c044c4af0ad4f9530506acba86bc03d25fc00db4"
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        }
+      },
+      "environment_policy": "do not forward host environment"
+    }
+  ],
+  "receipts": [
+    {
+      "receiver": "denied",
+      "path": "/nonce/59a31260f84ce821",
+      "profile": "control"
+    },
+    {
+      "receiver": "denied",
+      "path": "/direct/59a31260f84ce821",
+      "profile": "control"
+    },
+    {
+      "receiver": "udp",
+      "path": "59a31260f84ce821.exfil.test",
+      "profile": "control"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/nonce/59a31260f84ce821",
+      "profile": "control"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+      "profile": "control"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/nonce/4a51a20059303ca5",
+      "profile": "baseline"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+      "profile": "baseline"
+    },
+    {
+      "receiver": "allowed",
+      "path": "/nonce/3ad5635cf796d583",
+      "profile": "hardened"
+    }
+  ],
+  "setup": [
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "openshell 0.1.6\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "status"
+      ],
+      "returncode": 0,
+      "stdout": "Server Status\n\n  Gateway: http://127.0.0.1:18080\n  Server: http://127.0.0.1:18080\n  Status: Connected\n  Authentication: Not required (gateway)\n  Version: 0.1.6\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Server.Version}}"
+      ],
+      "returncode": 0,
+      "stdout": "29.4.2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "build",
+        "--build-arg",
+        "CANARY=SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+        "-t",
+        "sandbox-matrix-fixture:49d5d2",
+        "-f",
+        "openshell/fixture.Dockerfile",
+        "."
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "#0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from fixture.Dockerfile\n#1 transferring dockerfile: 640B done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0\n#2 DONE 0.0s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 136B done\n#3 DONE 0.0s\n\n#4 [1/5] FROM docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0\n#4 resolve docker.io/library/python:3.12-alpine@sha256:5789aa194f757888f41fa3d48e14b6feaa1b57c0af0b56fcb1372d6474d3bff0 done\n#4 DONE 0.0s\n\n#5 [internal] load build context\n#5 transferring context: 135B done\n#5 DONE 0.0s\n\n#6 [2/5] COPY scripts/probe.py /sandbox/probe.py\n#6 CACHED\n\n#7 [3/5] COPY openshell/receiver.py /sandbox/receiver.py\n#7 CACHED\n\n#8 [4/5] RUN test -n \"SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"     && mkdir -p /matrix-private /matrix-outside /sandbox/.git/hooks /sandbox/.claude     && printf '%s' \"SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\" > /matrix-private/canary     && chmod 755 /matrix-private     && chmod 444 /matrix-private/canary     && chmod -R 777 /sandbox /matrix-outside\n#8 DONE 0.1s\n\n#9 [5/5] WORKDIR /sandbox\n#9 DONE 0.0s\n\n#10 exporting to image\n#10 exporting layers 0.0s done\n#10 exporting manifest sha256:5bee633deccc201ce8c845c9a70505328e1f1313151175421da29d0b87c06722 done\n#10 exporting config sha256:903429703415953f1be3c3d8997679d7b4e0a904008d4fc3c7fb8c261e498ad1 done\n#10 exporting attestation manifest sha256:be4005aff56c508b979005454cc6de6bd80b0979cc8d900b5cd418b66061996e done\n#10 exporting manifest list sha256:14e5ce28452cac28837869f9a62007834de82c5b921459f896485bf56029cfb5 done\n#10 naming to docker.io/library/sandbox-matrix-fixture:49d5d2 done\n#10 unpacking to docker.io/library/sandbox-matrix-fixture:49d5d2 0.0s done\n#10 DONE 0.1s\n"
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "sandbox-matrix-fixture:49d5d2",
+        "--format",
+        "{{.Id}}"
+      ],
+      "returncode": 0,
+      "stdout": "sha256:14e5ce28452cac28837869f9a62007834de82c5b921459f896485bf56029cfb5\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/gateway:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/gateway@sha256:f0b36dba21d282c52e498c25289658cfd6cd4f343b0069fde5609e25b002cdea\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/supervisor:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/supervisor@sha256:ce859a7d77ee515d3fe0b3c7dc61286516f402eb1d25c761d806d9ae5ed96c0b\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "ghcr.io/nvidia/openshell/sandbox:0.1.6",
+        "--format",
+        "{{json .RepoDigests}}"
+      ],
+      "returncode": 0,
+      "stdout": "[\"ghcr.io/nvidia/openshell/sandbox@sha256:1038eb5c1f191fa3c34684fd7041b891c78ec570979d487f36e06e08f91bfb63\"]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "sandbox-matrix-receiver-49d5d2",
+        "--network",
+        "host",
+        "sandbox-matrix-fixture:49d5d2",
+        "python3",
+        "/sandbox/receiver.py",
+        "19181",
+        "19182",
+        "19183"
+      ],
+      "returncode": 0,
+      "stdout": "e3fd3c95924ff07bec12cc38220e855eabf0838dbc3a7bb25e2980c62c3daead\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"denied\", \"path\": \"/direct/59a31260f84ce821\"}\n{\"receiver\": \"udp\", \"path\": \"59a31260f84ce821.exfil.test\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"allowed\", \"path\": \"/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "create",
+        "--name",
+        "mx-49d5d2-baseline",
+        "--from",
+        "sandbox-matrix-fixture:49d5d2",
+        "--policy",
+        "$REPO/results/2026-10-30/openshell/baseline.yaml",
+        "--no-auto-providers",
+        "--env",
+        "SANDBOX_MATRIX_TOKEN=SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536",
+        "--detach",
+        "--",
+        "python3",
+        "-c",
+        "import time; time.sleep(600)"
+      ],
+      "returncode": 0,
+      "stdout": "\nCreated sandbox: mx-49d5d2-baseline\n\n  [0.0s] Requesting compute...\n[0.0s] Sandbox allocated\n[0.0s] Pulling image sandbox-matrix-fixture:49d5d2\n[0.0s] Image already present\n[0.1s] Starting sandbox Container created\n",
+      "stderr": "\u26a0 SANDBOX_MATRIX_TOKEN looks like a credential passed as a plain environment variable.\n  The agent inside the sandbox can read this value directly.\n\n  To hide it from the agent, use a provider instead of --env.\n  See: https://docs.nvidia.com/openshell/latest/how-it-works/providers/overview\n\n"
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-49d5d2-baseline",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "-c",
+        "import platform; print('READY', platform.platform())"
+      ],
+      "returncode": 0,
+      "stdout": "READY Linux-6.12.76-linuxkit-aarch64-with\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "get",
+        "mx-49d5d2-baseline",
+        "--policy-only"
+      ],
+      "returncode": 0,
+      "stdout": "version: 1\nfilesystem_policy:\n  include_workdir: true\n  read_only:\n    - /bin\n    - /usr\n    - /lib\n    - /etc\n    - /proc\n    - /dev/urandom\n    - /var/log\n    - /matrix-private\n  read_write:\n    - /sandbox\n    - /tmp\n    - /dev/null\nlandlock:\n  compatibility: hard_requirement\nnetwork_policies:\n  collector:\n    name: local-collector-only\n    endpoints:\n      - host: host.openshell.internal\n        port: 19181\n        protocol: tcp\n    binaries:\n      - path: /usr/local/bin/python3.12",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "ps",
+        "-a",
+        "-q",
+        "--no-trunc",
+        "--filter",
+        "label=openshell.ai/sandbox-name=mx-49d5d2-baseline",
+        "--filter",
+        "label=openshell.ai/isolation-role=sandbox"
+      ],
+      "returncode": 0,
+      "stdout": "890a4b2c189e8080768ea791f173cbd16b7c3ace23acffdec8948c25f3b36c49\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .Mounts}}",
+        "890a4b2c189e8080768ea791f173cbd16b7c3ace23acffdec8948c25f3b36c49"
+      ],
+      "returncode": 0,
+      "stdout": "[{\"Type\":\"volume\",\"Name\":\"openshell-channel-c82860bb8bc1b4753cf2ef158e4c4276\",\"Source\":\"/var/lib/docker/volumes/openshell-channel-c82860bb8bc1b4753cf2ef158e4c4276/_data\",\"Destination\":\"/.openshell/channel\",\"Driver\":\"local\",\"Mode\":\"z\",\"RW\":true,\"Propagation\":\"\"},{\"Type\":\"volume\",\"Name\":\"openshell-control-c82860bb8bc1b4753cf2ef158e4c4276\",\"Source\":\"/var/lib/docker/volumes/openshell-control-c82860bb8bc1b4753cf2ef158e4c4276/_data\",\"Destination\":\"/.openshell/channel/control\",\"Driver\":\"local\",\"Mode\":\"z\",\"RW\":false,\"Propagation\":\"\"}]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"denied\", \"path\": \"/direct/59a31260f84ce821\"}\n{\"receiver\": \"udp\", \"path\": \"59a31260f84ce821.exfil.test\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"allowed\", \"path\": \"/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/4a51a20059303ca5\"}\n{\"receiver\": \"allowed\", \"path\": \"/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "create",
+        "--name",
+        "mx-49d5d2-hardened",
+        "--from",
+        "sandbox-matrix-fixture:49d5d2",
+        "--policy",
+        "$REPO/results/2026-10-30/openshell/hardened.yaml",
+        "--no-auto-providers",
+        "--detach",
+        "--",
+        "python3",
+        "-c",
+        "import time; time.sleep(600)"
+      ],
+      "returncode": 0,
+      "stdout": "\nCreated sandbox: mx-49d5d2-hardened\n\n  [0.0s] Requesting compute...\n[0.0s] Sandbox allocated\n[0.0s] Pulling image sandbox-matrix-fixture:49d5d2\n[0.0s] Image already present\n[0.1s] Starting sandbox Container created\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "exec",
+        "mx-49d5d2-hardened",
+        "--no-login-shell",
+        "--no-tty",
+        "--",
+        "python3",
+        "-c",
+        "import platform; print('READY', platform.platform())"
+      ],
+      "returncode": 0,
+      "stdout": "READY Linux-6.12.76-linuxkit-aarch64-with\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "get",
+        "mx-49d5d2-hardened",
+        "--policy-only"
+      ],
+      "returncode": 0,
+      "stdout": "version: 1\nfilesystem_policy:\n  include_workdir: true\n  read_only:\n    - /bin\n    - /usr\n    - /lib\n    - /etc\n    - /proc\n    - /dev/urandom\n    - /var/log\n  read_write:\n    - /sandbox\n    - /tmp\n    - /dev/null\nlandlock:\n  compatibility: hard_requirement\nnetwork_policies:\n  collector:\n    name: local-collector-only\n    endpoints:\n      - host: host.openshell.internal\n        port: 19181\n        protocol: tcp\n    binaries:\n      - path: /usr/local/bin/python3.12",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "ps",
+        "-a",
+        "-q",
+        "--no-trunc",
+        "--filter",
+        "label=openshell.ai/sandbox-name=mx-49d5d2-hardened",
+        "--filter",
+        "label=openshell.ai/isolation-role=sandbox"
+      ],
+      "returncode": 0,
+      "stdout": "10954b47b7285e1b4ea7c7742b4f80bbb3b2c11f0d99b905b337ebb5bce61e01\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{json .Mounts}}",
+        "10954b47b7285e1b4ea7c7742b4f80bbb3b2c11f0d99b905b337ebb5bce61e01"
+      ],
+      "returncode": 0,
+      "stdout": "[{\"Type\":\"volume\",\"Name\":\"openshell-channel-d554a4d8246da9a21f8d71234c02ccc8\",\"Source\":\"/var/lib/docker/volumes/openshell-channel-d554a4d8246da9a21f8d71234c02ccc8/_data\",\"Destination\":\"/.openshell/channel\",\"Driver\":\"local\",\"Mode\":\"z\",\"RW\":true,\"Propagation\":\"\"},{\"Type\":\"volume\",\"Name\":\"openshell-control-d554a4d8246da9a21f8d71234c02ccc8\",\"Source\":\"/var/lib/docker/volumes/openshell-control-d554a4d8246da9a21f8d71234c02ccc8/_data\",\"Destination\":\"/.openshell/channel/control\",\"Driver\":\"local\",\"Mode\":\"z\",\"RW\":false,\"Propagation\":\"\"}]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "logs",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "READY\n{\"receiver\": \"denied\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"denied\", \"path\": \"/direct/59a31260f84ce821\"}\n{\"receiver\": \"udp\", \"path\": \"59a31260f84ce821.exfil.test\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/59a31260f84ce821\"}\n{\"receiver\": \"allowed\", \"path\": \"/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/4a51a20059303ca5\"}\n{\"receiver\": \"allowed\", \"path\": \"/secret/SANDBOX_MATRIX_SYNTHETIC_4b8d0d79ce585536\"}\n{\"receiver\": \"allowed\", \"path\": \"/nonce/3ad5635cf796d583\"}\n",
+      "stderr": ""
+    }
+  ],
+  "cleanup": [
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "delete",
+        "mx-49d5d2-baseline"
+      ],
+      "returncode": 0,
+      "stdout": "\u2713 Sandbox mx-49d5d2-baseline deletion accepted; cleanup is pending\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "confirm-deleted",
+        "mx-49d5d2-baseline"
+      ],
+      "returncode": 0,
+      "stdout": "gateway: sandbox not found; docker: no workload or supervisor container",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "$REPO/.tools/openshell",
+        "--gateway-endpoint",
+        "http://127.0.0.1:18080",
+        "sandbox",
+        "delete",
+        "mx-49d5d2-hardened"
+      ],
+      "returncode": 0,
+      "stdout": "\u2713 Sandbox mx-49d5d2-hardened deletion accepted; cleanup is pending\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "confirm-deleted",
+        "mx-49d5d2-hardened"
+      ],
+      "returncode": 0,
+      "stdout": "gateway: sandbox not found; docker: no workload or supervisor container",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "sandbox-matrix-receiver-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "sandbox-matrix-receiver-49d5d2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "sandbox-matrix-control-49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "sandbox-matrix-control-49d5d2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "rm",
+        "sandbox-matrix-fixture:49d5d2"
+      ],
+      "returncode": 0,
+      "stdout": "Untagged: sandbox-matrix-fixture:49d5d2\nDeleted: sha256:14e5ce28452cac28837869f9a62007834de82c5b921459f896485bf56029cfb5\n",
+      "stderr": ""
+    }
+  ],
+  "not_run": {
+    "offline": "\u0431\u0435\u0437 network rules \u0432 \u044d\u0442\u043e\u043c \u0440\u0435\u043b\u0438\u0437\u0435 \u043d\u0435\u0442 DNS-\u043e\u0442\u0432\u0435\u0442\u0447\u0438\u043a\u0430 \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u0438; \u043e\u0448\u0438\u0431\u043a\u0443 DNS \u043d\u0435\u043b\u044c\u0437\u044f \u0437\u0430\u0441\u0447\u0438\u0442\u0430\u0442\u044c \u043a\u0430\u043a \u044f\u0432\u043d\u044b\u0439 \u043e\u0442\u043a\u0430\u0437"
+  }
+}

@@ -1,0 +1,18 @@
+$ npm run matrix -- --with-openshell --output results/2026-10-30
+started: 2026-10-30T08:36:09.303334+00:00
+control: 0
+baseline: 0
+hardened: 0
+offline: 0
+$REPO/results/2026-10-30/srt: 0 stand errors, 0 findings
+lab: openshell --version
+lab: docker image
+lab: docker image
+lab: docker image
+lab: docker run
+lab: docker run
+control: 0
+baseline: 0
+hardened: 0
+$REPO/results/2026-10-30/openshell: 0 stand errors, 0 findings
+exit code: 0

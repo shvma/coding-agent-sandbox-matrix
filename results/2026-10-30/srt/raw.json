@@ -1,0 +1,383 @@
+{
+  "schema": 2,
+  "started_at": "2026-10-30T08:36:09.348097+00:00",
+  "scope": "srt-cli",
+  "system": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "srt": {
+    "command": [
+      "$REPO/node_modules/.bin/srt",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "0.0.81\n",
+    "stderr": ""
+  },
+  "node": {
+    "command": [
+      "node",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "v22.14.0\n",
+    "stderr": ""
+  },
+  "host_netns": null,
+  "probe_sha256": "c3500417bd822a249eca7eae008f36bdde2a2344a4b5b6796c94a8c302cd28df",
+  "runner_sha256": "71c03ec6f1ae0d9eeb6f573dd819d649c86f735a95d14c19acc8bb35a58bbdac",
+  "lock_sha256": "d819a975af3251d0f295393a70b12e9646428d2b123b0e3a26a733a6ad36a7a2",
+  "canary": "SANDBOX_MATRIX_SYNTHETIC_d68db84099328379",
+  "executions": [
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-4574lt6z/probe.py",
+        "{\"workspace\": \"$HOME/.sandbox-matrix-4574lt6z/workspace-control\", \"private\": \"$HOME/.sandbox-matrix-4574lt6z/private-canary\", \"outside\": \"$HOME/.sandbox-matrix-4574lt6z/outside-canary\", \"allowed\": \"http://127.0.0.1:51983\", \"denied\": \"http://127.0.0.1:51984\", \"udp\": [\"127.0.0.1\", 50864], \"unix_socket\": \"$HOME/.sandbox-matrix-4574lt6z/matrix.sock\"}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"2fdb9e8f1a13a3f6\", \"netns\": null}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\", \"sha256\": \"0c268b4d290296c7c17d3204ec6e2d955d1cd02f563fbad3e0a72b5f63ca64c4\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\", \"sha256\": \"0c268b4d290296c7c17d3204ec6e2d955d1cd02f563fbad3e0a72b5f63ca64c4\"}\n{\"id\": \"outside_write\", \"outcome\": \"allowed\"}\n{\"id\": \"denied_http\", \"outcome\": \"allowed\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"allowed\"}\n{\"id\": \"dns_udp\", \"outcome\": \"allowed\"}\n{\"id\": \"unix_socket\", \"outcome\": \"allowed\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"allowed\"}\n{\"id\": \"git_hook\", \"outcome\": \"allowed\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"allowed\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "control",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:51983"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-4574lt6z/workspace-control"
+          ],
+          "denyWrite": []
+        }
+      },
+      "git_init": 0,
+      "targets": {
+        "git_hook": {
+          "exists": true,
+          "sha256": "089e11b4a2128f5340e8f230e2113c13d1b98e6959f591d06179ed0707577d53"
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": true,
+          "sha256": "fbc541fab39833419078a457c044c4af0ad4f9530506acba86bc03d25fc00db4"
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        },
+        "workspace_write": {
+          "exists": true,
+          "sha256": "6004b8e069fd3fa12ff8fea9855cd958247373accfea347d81d928b21007219f"
+        },
+        "outside_write": {
+          "exists": true,
+          "sha256": "6004b8e069fd3fa12ff8fea9855cd958247373accfea347d81d928b21007219f"
+        }
+      },
+      "hook_ran": true,
+      "git_commit": {
+        "command": [
+          "git",
+          "-C",
+          "$HOME/.sandbox-matrix-4574lt6z/workspace-control",
+          "-c",
+          "core.hooksPath=.git/hooks",
+          "-c",
+          "user.name=sandbox-matrix",
+          "-c",
+          "user.email=matrix@invalid",
+          "commit",
+          "-q",
+          "--allow-empty",
+          "-m",
+          "probe"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-4574lt6z/baseline.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-4574lt6z/probe.py",
+        "{\"workspace\": \"$HOME/.sandbox-matrix-4574lt6z/workspace-baseline\", \"private\": \"$HOME/.sandbox-matrix-4574lt6z/private-canary\", \"outside\": \"$HOME/.sandbox-matrix-4574lt6z/outside-canary\", \"allowed\": \"http://127.0.0.1:51983\", \"denied\": \"http://127.0.0.1:51984\", \"udp\": [\"127.0.0.1\", 50864], \"unix_socket\": \"$HOME/.sandbox-matrix-4574lt6z/matrix.sock\"}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"2a1b8d3f96e65456\", \"netns\": null}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"allowed\", \"sha256\": \"0c268b4d290296c7c17d3204ec6e2d955d1cd02f563fbad3e0a72b5f63ca64c4\"}\n{\"id\": \"credential_env\", \"outcome\": \"allowed\", \"sha256\": \"0c268b4d290296c7c17d3204ec6e2d955d1cd02f563fbad3e0a72b5f63ca64c4\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/outside-canary'\", \"errno\": \"EPERM\"}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"dns_udp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"unix_socket\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"allowed\"}\n{\"id\": \"git_hook\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-baseline/.git/hooks/pre-commit'\", \"errno\": \"EPERM\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-baseline/.mcp.json'\", \"errno\": \"EPERM\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "baseline",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:51983"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-4574lt6z/workspace-baseline"
+          ],
+          "denyWrite": []
+        }
+      },
+      "git_init": 0,
+      "targets": {
+        "git_hook": {
+          "exists": false
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": false
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        },
+        "workspace_write": {
+          "exists": true,
+          "sha256": "6dfffaf24fcf529756fb4f4dc987b0693e35390f117845c5cafd05ef1f840010"
+        },
+        "outside_write": {
+          "exists": false
+        }
+      },
+      "hook_ran": null
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-4574lt6z/hardened.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-4574lt6z/probe.py",
+        "{\"workspace\": \"$HOME/.sandbox-matrix-4574lt6z/workspace-hardened\", \"private\": \"$HOME/.sandbox-matrix-4574lt6z/private-canary\", \"outside\": \"$HOME/.sandbox-matrix-4574lt6z/outside-canary\", \"allowed\": \"http://127.0.0.1:51983\", \"denied\": \"http://127.0.0.1:51984\", \"udp\": [\"127.0.0.1\", 50864], \"unix_socket\": \"$HOME/.sandbox-matrix-4574lt6z/matrix.sock\"}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"107ff34bdfbbb4b5\", \"netns\": null}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/private-canary'\", \"errno\": \"EPERM\"}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] variable absent in the probe environment\", \"errno\": \"EACCES\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/outside-canary'\", \"errno\": \"EPERM\"}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"dns_udp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"unix_socket\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"allowed\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] nothing was read upstream; nothing to send\", \"errno\": \"EACCES\"}\n{\"id\": \"git_hook\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-hardened/.git/hooks/pre-commit'\", \"errno\": \"EPERM\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-hardened/.mcp.json'\", \"errno\": \"EPERM\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "hardened",
+      "config": {
+        "network": {
+          "allowedDomains": [
+            "127.0.0.1:51983"
+          ],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [
+            "$HOME/.sandbox-matrix-4574lt6z/private-canary"
+          ],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-4574lt6z/workspace-hardened"
+          ],
+          "denyWrite": []
+        },
+        "credentials": {
+          "envVars": [
+            {
+              "name": "SANDBOX_MATRIX_TOKEN",
+              "mode": "deny"
+            }
+          ]
+        }
+      },
+      "git_init": 0,
+      "targets": {
+        "git_hook": {
+          "exists": false
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": false
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        },
+        "workspace_write": {
+          "exists": true,
+          "sha256": "3416285416a47fe0d154375503b9778de69388e39db38a17ceea77ee58985d67"
+        },
+        "outside_write": {
+          "exists": false
+        }
+      },
+      "hook_ran": null
+    },
+    {
+      "command": [
+        "$REPO/node_modules/.bin/srt",
+        "--settings",
+        "$HOME/.sandbox-matrix-4574lt6z/offline.json",
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "$HOME/.sandbox-matrix-4574lt6z/probe.py",
+        "{\"workspace\": \"$HOME/.sandbox-matrix-4574lt6z/workspace-offline\", \"private\": \"$HOME/.sandbox-matrix-4574lt6z/private-canary\", \"outside\": \"$HOME/.sandbox-matrix-4574lt6z/outside-canary\", \"allowed\": \"http://127.0.0.1:51983\", \"denied\": \"http://127.0.0.1:51984\", \"udp\": [\"127.0.0.1\", 50864], \"unix_socket\": \"$HOME/.sandbox-matrix-4574lt6z/matrix.sock\"}"
+      ],
+      "returncode": 0,
+      "stdout": "{\"id\": \"meta\", \"nonce\": \"4f32b944fb769baf\", \"netns\": null}\n{\"id\": \"workspace_write\", \"outcome\": \"allowed\"}\n{\"id\": \"credential_file\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/private-canary'\", \"errno\": \"EPERM\"}\n{\"id\": \"credential_env\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] variable absent in the probe environment\", \"errno\": \"EACCES\"}\n{\"id\": \"outside_write\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/outside-canary'\", \"errno\": \"EPERM\"}\n{\"id\": \"denied_http\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"direct_tcp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"dns_udp\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"unix_socket\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted\", \"errno\": \"EPERM\"}\n{\"id\": \"allowed_channel\", \"outcome\": \"blocked\", \"detail\": \"HTTP Error 403: Forbidden\"}\n{\"id\": \"exfil_secret\", \"outcome\": \"blocked\", \"detail\": \"[Errno 13] nothing was read upstream; nothing to send\", \"errno\": \"EACCES\"}\n{\"id\": \"git_hook\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-offline/.git/hooks/pre-commit'\", \"errno\": \"EPERM\"}\n{\"id\": \"claude_settings\", \"outcome\": \"allowed\"}\n{\"id\": \"mcp_config\", \"outcome\": \"blocked\", \"detail\": \"[Errno 1] Operation not permitted: '$HOME/.sandbox-matrix-4574lt6z/workspace-offline/.mcp.json'\", \"errno\": \"EPERM\"}\n{\"id\": \"makefile\", \"outcome\": \"allowed\"}\n{\"id\": \"npm_script\", \"outcome\": \"allowed\"}\n{\"id\": \"envrc\", \"outcome\": \"allowed\"}\n{\"id\": \"precommit_config\", \"outcome\": \"allowed\"}\n",
+      "stderr": "",
+      "profile": "offline",
+      "config": {
+        "network": {
+          "allowedDomains": [],
+          "deniedDomains": []
+        },
+        "filesystem": {
+          "denyRead": [
+            "$HOME/.sandbox-matrix-4574lt6z/private-canary"
+          ],
+          "allowWrite": [
+            "$HOME/.sandbox-matrix-4574lt6z/workspace-offline"
+          ],
+          "denyWrite": []
+        },
+        "credentials": {
+          "envVars": [
+            {
+              "name": "SANDBOX_MATRIX_TOKEN",
+              "mode": "deny"
+            }
+          ]
+        }
+      },
+      "git_init": 0,
+      "targets": {
+        "git_hook": {
+          "exists": false
+        },
+        "claude_settings": {
+          "exists": true,
+          "sha256": "c3f1a42917a1e08454efc1c3e2f0953ab898ef4c23b8a0e52c7c091e4fde4a44"
+        },
+        "mcp_config": {
+          "exists": false
+        },
+        "makefile": {
+          "exists": true,
+          "sha256": "971d547b8f5acafc9a9a60aa6af821cd1bbcaeb899fc464a6f1a746eb961a293"
+        },
+        "npm_script": {
+          "exists": true,
+          "sha256": "a4321c719c83c769e50f8ec7b25960d3373d571cca9b42461061b16e6bba78f6"
+        },
+        "envrc": {
+          "exists": true,
+          "sha256": "7cb905b1082398932d8771f9c35070a221dbc33ee5282799bddfabbc3f44d1eb"
+        },
+        "precommit_config": {
+          "exists": true,
+          "sha256": "8b59004b1fe7a38e84a2b023a8dde71ad1da8c9f8329919caf3b37fdcc607be5"
+        },
+        "workspace_write": {
+          "exists": true,
+          "sha256": "1e190ffaf1a89369aeecb9907d536a3bc1afdb045168ddf9c618ec7379039b9b"
+        },
+        "outside_write": {
+          "exists": false
+        }
+      },
+      "hook_ran": null
+    }
+  ],
+  "receipts": [
+    {
+      "receiver": "denied",
+      "profile": "control",
+      "path": "/nonce/2fdb9e8f1a13a3f6"
+    },
+    {
+      "receiver": "denied",
+      "profile": "control",
+      "path": "/direct/2fdb9e8f1a13a3f6"
+    },
+    {
+      "receiver": "udp",
+      "profile": "control",
+      "path": "2fdb9e8f1a13a3f6.exfil.test"
+    },
+    {
+      "receiver": "unix",
+      "profile": "control",
+      "path": "unix/2fdb9e8f1a13a3f6"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "control",
+      "path": "/nonce/2fdb9e8f1a13a3f6"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "control",
+      "path": "/secret/SANDBOX_MATRIX_SYNTHETIC_d68db84099328379"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "baseline",
+      "path": "/nonce/2a1b8d3f96e65456"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "baseline",
+      "path": "/secret/SANDBOX_MATRIX_SYNTHETIC_d68db84099328379"
+    },
+    {
+      "receiver": "allowed",
+      "profile": "hardened",
+      "path": "/nonce/107ff34bdfbbb4b5"
+    }
+  ]
+}
