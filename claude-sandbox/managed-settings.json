@@ -1,13 +1,18 @@
 {
+  "allowManagedHooksOnly": true,
+  "allowManagedMcpServersOnly": true,
+  "allowedMcpServers": [],
+  "enableAllProjectMcpServers": false,
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
     "allowUnsandboxedCommands": false,
-    "autoAllowBashIfSandboxed": true,
+    "autoAllowBashIfSandboxed": false,
     "enableWeakerNetworkIsolation": false,
     "allowAppleEvents": false,
     "filesystem": {
-      "allowManagedReadPathsOnly": true
+      "allowManagedReadPathsOnly": true,
+      "denyRead": ["~/**/.env"]
     },
     "network": {
       "allowedDomains": [],
@@ -17,14 +22,19 @@
       "files": [
         { "path": "~/.ssh", "mode": "deny" },
         { "path": "~/.aws", "mode": "deny" },
+        { "path": "~/.azure", "mode": "deny" },
         { "path": "~/.config/gcloud", "mode": "deny" },
         { "path": "~/.kube", "mode": "deny" },
         { "path": "~/.docker/config.json", "mode": "deny" },
         { "path": "~/.netrc", "mode": "deny" },
         { "path": "~/.npmrc", "mode": "deny" },
+        { "path": "~/.pypirc", "mode": "deny" },
+        { "path": "~/.git-credentials", "mode": "deny" },
+        { "path": "~/.vault-token", "mode": "deny" },
         { "path": "~/.config/gh", "mode": "deny" }
       ],
       "envVars": [
+        { "name": "ANTHROPIC_API_KEY", "mode": "deny" },
         { "name": "GITHUB_TOKEN", "mode": "deny" },
         { "name": "GH_TOKEN", "mode": "deny" },
         { "name": "NPM_TOKEN", "mode": "deny" },
@@ -38,12 +48,19 @@
     "deny": [
       "Read(~/.ssh/**)",
       "Read(~/.aws/**)",
+      "Read(~/.azure/**)",
       "Read(~/.config/gcloud/**)",
       "Read(~/.kube/**)",
       "Read(~/.docker/config.json)",
       "Read(~/.netrc)",
       "Read(~/.npmrc)",
-      "Read(~/.config/gh/**)"
+      "Read(~/.pypirc)",
+      "Read(~/.git-credentials)",
+      "Read(~/.vault-token)",
+      "Read(~/.config/gh/**)",
+      "Read(**/.env)",
+      "WebFetch",
+      "WebSearch"
     ]
   }
 }
